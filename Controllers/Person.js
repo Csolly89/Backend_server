@@ -31,10 +31,21 @@ async function createPerson(req,res){
     }
 }
 
-// delete function needed
+async function deletePerson(req, res) {
+    try {
+        const { id } = req.params
+        const person = await Person.findByIdAndDelete(id)
+        res.json(person)
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ message: 'error getting person' })
+    }
+}
+
 
 module.exports = {
     getAllPeople,
     getPersonById,
-    createPerson
+    createPerson,
+    deletePerson
 }
